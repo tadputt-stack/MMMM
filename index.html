@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HandSync - Hand Gesture Music Player</title>
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <video id="webcam" autoplay playsinline></video>
+    <canvas id="output_canvas" width="1280" height="720"></canvas>
+
+    <!-- การ์ดสถานะ อยู่มุมขวาบนของกล่องกล้อง -->
+    <div id="status-card">
+      <div>วงที่ตรวจพบ:</div>
+      <div id="band-display" class="band-name">กำลังรอสัญลักษณ์มือ...</div>
+      <div id="song-display">-</div>
+
+      <div class="controls">
+        <button id="btn-capture" class="btn btn-capture">แคปหน้าจอ</button>
+      </div>
+    </div>
+
+    <!-- ป๊อปอัปรูปวง เด้งขึ้นจากด้านล่าง -->
+    <img id="band-popup" class="band-popup" alt="">
+  </div>
+
+  <div id="photo-modal" class="modal">
+    <div class="modal-content">
+      <span id="close-modal" class="close">&times;</span>
+      <h3>ภาพถ่ายของคุณ</h3>
+      <img id="captured-image" src="" alt="Captured Image" />
+      
+      <div class="qr-container">
+        <p>สแกน QR Code เพื่อบันทึกรูปภาพ:</p>
+        <div id="qrcode"></div>
+      </div>
+      
+      <a id="download-link" download="handsync-snap.png" class="btn">ดาวน์โหลดรูปภาพ</a>
+    </div>
+  </div>
+
+<!-- โหลดสคริปต์หลักและ capture.js แบบปกติ -->
+  <script src="capture.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
