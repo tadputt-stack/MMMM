@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HandSync - Hand Gesture Music Player</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
@@ -17,16 +20,54 @@
     <video id="webcam" autoplay playsinline></video>
     <canvas id="output_canvas" width="1280" height="720"></canvas>
 
-    <!-- การ์ดสถานะ อยู่มุมขวาบนของกล่องกล้อง -->
-    <div id="status-card">
-      <div>วงที่ตรวจพบ:</div>
-      <div id="band-display" class="band-name">กำลังรอสัญลักษณ์มือ...</div>
-      <div id="song-display">-</div>
+    <!-- การ์ดเพลง Glassmorphism (แบบที่ 1) -->
+    <div id="status-card" class="glass-player-card">
+      <div class="card-album-wrap">
+        <img id="album-cover" class="album-cover" src="cover + disc/karabow album.png" alt="Cover Art">
+      </div>
 
-      <div class="controls">
-        <button id="btn-capture" class="btn btn-capture">แคปหน้าจอ</button>
+      <div class="track-info">
+        <div id="song-display" class="song-title">รอสัญลักษณ์มือ...</div>
+        <div id="band-display" class="band-name">HandSync Player</div>
+
+        <div class="card-controls">
+          <div id="playback-badge" class="playback-badge">
+            <span class="badge-dot"></span>
+            <span id="badge-text">พร้อมใช้งาน</span>
+          </div>
+          <button id="btn-capture" class="btn-capture" title="แคปหน้าจอ">
+            <svg class="camera-icon" viewBox="0 0 24 24">
+              <path d="M4 7h3.2L8.6 5h6.8l1.4 2H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2zm8 11a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zm0-2a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+            </svg>
+            <span>แคปหน้าจอ</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="vinyl-container" id="vinyl-container" title="คลิกเพื่อเล่น/หยุดชั่วคราว">
+        <div id="vinyl-disc" class="vinyl-disc">
+          <div class="vinyl-grooves"></div>
+          <div class="disc-center-label">
+            <img id="disc-center-img" class="disc-center-img" src="cover + disc/karabow disc.png" alt="Disc Label">
+            <div class="vinyl-center-hole">
+              <svg class="vinyl-play-icon" viewBox="0 0 24 24">
+                <polygon points="6 4 20 12 6 20"></polygon>
+              </svg>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- โอเวอร์เลย์นับถอยหลัง 3 วินาที -->
+    <div id="countdown-overlay" class="countdown-overlay">
+      <div id="countdown-number" class="countdown-number">3</div>
+    </div>
+
+    <!-- แฟลชกล้องถ่ายภาพ -->
+    <div id="camera-flash" class="camera-flash"></div>
+
+
 
     <!-- ป๊อปอัปรูปวง เด้งขึ้นจากด้านล่าง -->
     <img id="band-popup" class="band-popup" alt="">
